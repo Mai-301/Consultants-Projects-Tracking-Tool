@@ -3,7 +3,7 @@
 
 <head>
     <title>
-        Dashboard
+        Projects
     </title>
 </head>
 
@@ -15,21 +15,20 @@
             </header>
             <ul>
                 <li>
-                    Project 1 <input type="button" value="modify" onclick="modifyProject()" />
-                     <input type="button" value="view report" onclick="viewReport(project1)" />
+                    Project 1 <input type="button" value="modify" />
+                    <input type="button" value="view report" />
                 </li>
-                 <li>
-                    Project 2 <input type="button" value="modify" onclick="modifyProject()" />
-                     <input type="button" value="view report" onclick="viewReport(project2)" />
-                      <input type="checkbox" value="" />
+                <li>
+                    Project 2 <input type="button" value="modify" />
+                    <input type="button" value="view report" />
                 </li>
-                 <li>
-                    Project 3 <input type="button" value="modify" onclick="modifyProject()" />
-                     <input type="button" value="view report" onclick="viewReport(project3)" />
+                <li>
+                    Project 3 <input type="button" value="modify" />
+                    <input type="button" value="view report" />
                 </li>
-                 <li>
-                    Project 4 <input type="button" value="modify" onclick="modifyProject()" />
-                     <input type="button" value="view report" onclick="viewReport(project4)" />
+                <li>
+                    Project 4 <input type="button" value="modify" />
+                    <input type="button" value="view report" />
                 </li>
             </ul>
         </section>
@@ -39,19 +38,17 @@
             </header>
             <form>
                 <input type="text" placeholder="project name" />
+                <textarea rows="2" cols="20" placeholder="project description"></textarea>
                 <input type="date" placeholder="start date" />
                 <input type="date" placeholder="end date" />
+                <label name="status">Status
+                <select>
+                    <option value="active">Active</option>
+                    <option value="completed">completed</option>
+                </select>
                 <input type="number" placeholder="budget" />
                 <input type="number" placeholder="estimate hours" min="0" max="100" />
                 <input type="search" placeholder="assignee team leader" />
-                <label name="members">Members
-                <select>
-                    <option value="Ahmed">Ahmed</option>
-                    <option value="X">X</option>
-                    <option value="Y">Y</option>
-                    <option value="Mai">Mai</option>
-                </select>
-                </label>
                 <input type="submit" value="Add" />
             </form>
         </section>
