@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Dashboard
+    </title>
+</head>
+
+<body>
+    <main>
+        <section>
+            <header>
+                Projects
+            </header>
+            <ul>
+                <li>
+                    Project 1 <input type="button" value="modify" onclick="modifyProject()" />
+                     <input type="button" value="view report" onclick="viewReport(project1)" />
+                </li>
+                 <li>
+                    Project 2 <input type="button" value="modify" onclick="modifyProject()" />
+                     <input type="button" value="view report" onclick="viewReport(project2)" />
+                      <input type="checkbox" value="" />
+                </li>
+                 <li>
+                    Project 3 <input type="button" value="modify" onclick="modifyProject()" />
+                     <input type="button" value="view report" onclick="viewReport(project3)" />
+                </li>
+                 <li>
+                    Project 4 <input type="button" value="modify" onclick="modifyProject()" />
+                     <input type="button" value="view report" onclick="viewReport(project4)" />
+                </li>
+            </ul>
+        </section>
+        <section>
+            <header>
+                Add Project
+            </header>
+            <form>
+                <input type="text" placeholder="project name" />
+                <input type="date" placeholder="start date" />
+                <input type="date" placeholder="end date" />
+                <input type="number" placeholder="budget" />
+                <input type="number" placeholder="estimate hours" min="0" max="100" />
+                <input type="search" placeholder="assignee team leader" />
+                <label name="members">Members
+                <select>
+                    <option value="Ahmed">Ahmed</option>
+                    <option value="X">X</option>
+                    <option value="Y">Y</option>
+                    <option value="Mai">Mai</option>
+                </select>
+                </label>
+                <input type="submit" value="Add" />
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
