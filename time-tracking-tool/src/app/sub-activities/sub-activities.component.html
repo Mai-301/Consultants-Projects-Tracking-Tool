@@ -16,18 +16,22 @@
       <ul>
         <li>
           Activity 1 <input type="button" value="modify" />
+          <input type="button" value="startTimer" />
           <input type="button" value="assign activity" />
         </li>
         <li>
           Activity 2 <input type="button" value="modify" />
+           <input type="button" value="startTimer" />
           <input type="button" value="assign activity" />
         </li>
         <li>
           Activity 3 <input type="button" value="modify" />
+           <input type="button" value="startTimer" />
           <input type="button" value="assign activity" />
         </li>
         <li>
           Activity 4 <input type="button" value="modify" />
+           <input type="button" value="startTimer" />
           <input type="button" value="assign activity" />
         </li>
       </ul>
@@ -38,6 +42,29 @@
       </header>
       <form>
         <input type="text" placeholder="activity title" />
+        <label name="projects">Projects
+                <select>
+                    <option value="Project1">Project1</option>
+                    <option value="Project2">Project2</option>
+                    <option value="Project3">Project3</option>
+                </select>
+       </label>
+        <label name="milestones">Milestones
+                <select>
+                    <option value="Milestone1">Milestone1</option>
+                    <option value="Milestone2">Milestone2</option>
+                </select>
+       </label>
+
+        <label name="Priority">Priority
+                <select>
+                    <option value="Priority1">Normal</option>
+                    <option value="Priorit2">High</option>
+                    <option value="Priorit3">Urgent</option>
+                </select>
+       </label>
+        <label name="dueData">Due Date</label>
+        <input type="datetime" />
         <textarea rows="4" cols="20" placeholder="activity description"></textarea>
         <label name="members">Assignee Members
                 <select>
@@ -46,7 +73,9 @@
                     <option value="Z">Z</option>
                 </select>
                 </label>
+        <input type="number" />
         <input type="submit" value="add Activity" />
+        <input type="button" value="cancel" />
       </form>
     </section>
   </main>
