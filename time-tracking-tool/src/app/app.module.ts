@@ -8,6 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProjectComponent } from './project/project.component';
+import { SideBarComponent } from './side-bar/side-bar.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ProjectComponent } from './project/project.component';
     NavbarComponent,
     SearchComponent,
     ProfileComponent,
-    ProjectComponent
+    ProjectComponent,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,
