@@ -5,10 +5,10 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
-import { ProfileComponent } from './profile/profile.component';
 import { ProjectComponent } from './project/project.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { SubActivitiesComponent } from './sub-activities/sub-activities.component';
+import { NavLinkComponent } from './nav-link/nav-link.component';
 
 
 @NgModule({
@@ -16,10 +16,10 @@ import { SubActivitiesComponent } from './sub-activities/sub-activities.componen
     AppComponent,
     NavbarComponent,
     SearchComponent,
-    ProfileComponent,
     ProjectComponent,
     SideBarComponent,
-    SubActivitiesComponent
+    SubActivitiesComponent,
+    NavLinkComponent
   ],
   imports: [
     BrowserModule,
