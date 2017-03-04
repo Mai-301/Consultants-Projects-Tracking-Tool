@@ -2,43 +2,105 @@
   <header>
     Projects
   </header>
-  <ul>
+  <ul *ngFor="let project of projects">
     <li>
-      Project 1 <input type="button" value="modify" />
+      {{project.name}} <input type="button" value="modify" />
       <input type="button" value="view report" />
     </li>
-    <li>
-      Project 2 <input type="button" value="modify" />
-      <input type="button" value="view report" />
-    </li>
-    <li>
-      Project 3 <input type="button" value="modify" />
-      <input type="button" value="view report" />
-    </li>
-    <li>
-      Project 4 <input type="button" value="modify" />
-      <input type="button" value="view report" />
-    </li>
+
   </ul>
 </section>
 <section>
   <header>
     Add Project
   </header>
-  <form>
-    <input type="text" placeholder="project name" />
-    <textarea rows="2" cols="20" placeholder="project description"></textarea>
-    <input type="date" placeholder="start date" />
-    <input type="date" placeholder="end date" />
-    <label name="status">Status
-                <select>
-                    <option value="active">Active</option>
-                    <option value="completed">completed</option>
-                </select>
-                </label>
-    <input type="number" placeholder="budget" />
-    <input type="number" placeholder="estimate hours" min="0" max="100" />
-    <input type="search" placeholder="assignee team leader" />
-    <input type="submit" value="Add" />
-  </form>
+  <button type="button" class="btn btn-primary" (click)="openAddProjectModal()">Add Project</button>
+
 </section>
+
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Project</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form novalidate (ngSubmit)="onSubmit(project)" [formGroup]="project">
+          <div class="form-group">
+            <label for="name" class="control-label col-sm-2">Name</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="name" name="name" type="text" placeholder="name"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="control-label col-sm-2">Description</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="description" name="description" type="text" placeholder="description"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="startDate" class="control-label col-sm-2">Start Date</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="startDate" name="startDate" type="date" placeholder="start date"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="endDate" class="control-label col-sm-2">End Date</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="endDate" name="endDate" type="date" placeholder="end date"></div>
+          </div>
+          <div class="form-group">
+            <label for="budget" class="control-label col-sm-2">Budget</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="budget" name="budget" type="number" placeholder="budget"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="estimateHours" class="control-label col-sm-2">Estimate hours</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="estimateHours" name="estimateHours" type="number" placeholder="estimate hours"
+                min="0" max="100"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="assignedTeamLeader" class="control-label col-sm-2">Assigned Team leader</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="assignedTeamLeader" name="assignedTeamLeader" type="search" placeholder="Assigned Team Leader"></div>
+          </div>
+          <div class="form-group">
+            <label for="status" class="control-label col-sm-2">Status</label>
+            <div class="col-sm-4">
+              <select class="form-control" name="status" formControlName="status" (ngModelChange)="onChange($event)">Status
+                <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
+             </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" type="submit" [disabled]="project.invalid">Create</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="btn-group" dropdown>
+            <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>   
+    Status <span class="caret"></span>
+  </button>
+            <ul dropdownMenu role="menu" aria-labelledby="single-button">
+              <a class="dropdown-item" href="#" *ngFor="let status of statuses">{{status.name}}</a>
+
+              <li class="divider dropdown-divider"></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+          </div>-->
