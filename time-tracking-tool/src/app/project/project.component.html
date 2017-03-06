@@ -1,21 +1,48 @@
 <section>
-  <header>
-    Projects
-  </header>
-  <ul *ngFor="let project of projects">
-    <li>
-      {{project.name}} <input type="button" value="modify" />
-      <input type="button" value="view report" />
-    </li>
+  <button type="button" class="btn btn-primary addProjectButton" (click)="openProjectModal()">Add Project</button>
+  <div class="container projectsTable">
+    <div class="row">
+      <table class="table table-bordered col-sm-8">
+        <thead class="thead-inverse">
+          <tr>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Start Date</td>
+            <td>End Date</td>
+            <td>Status</td>
+            <td>Budget</td>
+            <td>Estimate Hours</td>
+            <td>Assigned Team Leader</td>
+            <td>Actions</td>
+          </tr>
+        </thead>
 
-  </ul>
-</section>
-<section>
-  <header>
-    Add Project
-  </header>
-  <button type="button" class="btn btn-primary" (click)="openAddProjectModal()">Add Project</button>
-
+        <tbody id="tasks">
+          <tr *ngFor="let project of projects">
+            <td>{{project.name}}</td>
+            <td>{{project.description}}</td>
+            <td>{{project.startDate}}</td>
+            <td>{{project.endDate}}</td>
+            <td>{{project.status.name}}</td>
+            <td>{{project.budget}}</td>
+            <td>{{project.estimateHours}}</td>
+            <td>{{project.assignedTeamLeader}}</td>
+            <td>
+              <div class="col-sm-4">
+                <i class="fa fa-pencil projectIcons" aria-hidden="true"  title="Edit" (click)="openProjectModal(project)"></i>
+              </div>
+              <div class="col-sm-4">
+                <i class="fa fa-line-chart projectIcons" aria-hidden="true" title="Show report"></i>
+              </div>
+              <div class="col-sm-4">
+                <i class="fa fa-trash projectIcons" aria-hidden="true"  (click)="deleteProject(project)" title="Delete"></i>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </section>
 
 
@@ -23,16 +50,18 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title pull-left">Add Project</h4>
+        <h4 class="modal-title pull-left">{{header}}</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+   
         <form novalidate (ngSubmit)="onSubmit(project)" [formGroup]="project">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error':!project.controls['name'].valid && project.controls['name'].touched}">
             <label for="name" class="control-label col-sm-2">Name</label>
             <div class="col-sm-4"><input class="form-control" formControlName="name" name="name" type="text" placeholder="name"></div>
+            <div *ngIf="project.controls['name'].hasError('required') && project.controls['name'].touched" class="alert alert-danger">You must add a name.</div>
           </div>
 
           <div class="form-group">
@@ -60,6 +89,7 @@
                 min="0" max="100"></div>
           </div>
 
+
           <div class="form-group">
             <label for="assignedTeamLeader" class="control-label col-sm-2">Assigned Team leader</label>
             <div class="col-sm-4"><input class="form-control" formControlName="assignedTeamLeader" name="assignedTeamLeader" type="search" placeholder="Assigned Team Leader"></div>
@@ -68,19 +98,24 @@
             <label for="status" class="control-label col-sm-2">Status</label>
             <div class="col-sm-4">
               <select class="form-control" name="status" formControlName="status" (ngModelChange)="onChange($event)">Status
-                <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
+                <option *ngFor="let status of statuses" [selected]="status.name" [ngValue]="status">{{status.name}}</option>
              </select>
             </div>
+
           </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" type="submit" [disabled]="project.invalid">Create</button>
+          <div>
           </div>
+          <button class="btn btn-primary" type="submit">Submit</button>
+          <button type="button" class="btn btn-primary" aria-label="Close" (click)="hideChildModal()">Close</button>
         </form>
       </div>
-
+      <div class="modal-footer">
+        <!--
+          <button class="btn btn-primary" type="submit">Create</button>
+          <button type="button" class="btn btn-primary" aria-label="Close" (click)="hideChildModal()">Close</button>-->
+      </div>
     </div>
   </div>
-</div>
 
 
 
@@ -93,7 +128,7 @@
 
 
 
-<!--<div class="btn-group" dropdown>
+  <!--<div class="btn-group" dropdown>
             <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>   
     Status <span class="caret"></span>
   </button>

@@ -4,7 +4,7 @@ import { Status } from './status';
 export class StatusService {
 statuses: Status[];
   constructor() {
-    this.statuses = [{ id: 1, name: "Active" }, { id: 2, name: "Finished" }, { id: 3, name: "Freezed" }];
+    this.statuses = [{ value: 1, name: "Active" }, { value: 2, name: "Finished" }, { value: 3, name: "Freezed" }];
   }
   getStatuses():Status[]{
     return this.statuses;

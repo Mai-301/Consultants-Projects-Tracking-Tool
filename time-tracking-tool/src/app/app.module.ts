@@ -15,6 +15,7 @@ import { ProjectService } from './project.service';
 import { StatusService } from './status.service';
 import { ModalModule } from 'ng2-bootstrap';
 import { DropdownModule } from 'ng2-bootstrap';
+import { LocalStorageService } from 'angular2-localstorage';
 
 const appRoutes: Routes = [{ path: 'project', component: ProjectComponent },
 { path: 'subActivities', component: SubActivitiesComponent },
@@ -32,11 +33,11 @@ const appRoutes: Routes = [{ path: 'project', component: ProjectComponent },
   ],
   imports: [
     BrowserModule,
-    FormsModule,ReactiveFormsModule,
-    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(),DropdownModule.forRoot()
+    FormsModule, ReactiveFormsModule,
+    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(), DropdownModule.forRoot()
 
   ],
-  providers: [ProjectService,StatusService],
+  providers: [ProjectService, StatusService, LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
