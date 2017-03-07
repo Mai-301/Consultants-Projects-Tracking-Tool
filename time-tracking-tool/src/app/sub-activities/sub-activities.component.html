@@ -1,69 +1,143 @@
 <section>
-  <header>
-    Activities
-  </header>
-  <ul>
-    <li>
-      Activity 1 <input type="button" value="modify" />
-      <input type="button" value="startTimer" />
-      <input type="button" value="assign activity" />
-    </li>
-    <li>
-      Activity 2 <input type="button" value="modify" />
-      <input type="button" value="startTimer" />
-      <input type="button" value="assign activity" />
-    </li>
-    <li>
-      Activity 3 <input type="button" value="modify" />
-      <input type="button" value="startTimer" />
-      <input type="button" value="assign activity" />
-    </li>
-    <li>
-      Activity 4 <input type="button" value="modify" />
-      <input type="button" value="startTimer" />
-      <input type="button" value="assign activity" />
-    </li>
-  </ul>
-</section>
-<section>
-  <header>
-    Add Activities
-  </header>
-  <form>
-    <input type="text" placeholder="activity title" />
-    <label name="projects">Projects
-                <select>
-                    <option value="Project1">Project1</option>
-                    <option value="Project2">Project2</option>
-                    <option value="Project3">Project3</option>
-                </select>
-       </label>
-    <label name="milestones">Milestones
-                <select>
-                    <option value="Milestone1">Milestone1</option>
-                    <option value="Milestone2">Milestone2</option>
-                </select>
-       </label>
+  <button type="button" class="btn btn-primary addProjectButton" (click)="openTaskModal()">Add Task</button>
+  <div class="container projectsTable">
+    <div class="row">
+      <table class="table table-bordered col-sm-8">
+        <thead class="thead-inverse">
+          <tr>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Due Date</td>
+            <td>Estimate</td>
+            <td>Spent</td>
+            <td>Remaining</td>
+            <td>Assigned Employee</td>
+            <td>Assigned Project</td>
+            <td>Actions</td>
+          </tr>
+        </thead>
 
-    <label name="Priority">Priority
-                <select>
-                    <option value="Priority1">Normal</option>
-                    <option value="Priorit2">High</option>
-                    <option value="Priorit3">Urgent</option>
-                </select>
-       </label>
-    <label name="dueData">Due Date</label>
-    <input type="datetime" />
-    <textarea rows="4" cols="20" placeholder="activity description"></textarea>
-    <label name="members">Assignee Members
-                <select>
-                    <option value="X">X</option>
-                    <option value="Y">Y</option>
-                    <option value="Z">Z</option>
-                </select>
-                </label>
-    <input type="number" />
-    <input type="submit" value="add Activity" />
-    <input type="button" value="cancel" />
-  </form>
+        <tbody>
+          <tr *ngFor="let task of tasks">
+            <td>{{task.name}}</td>
+            <td>{{task.description}}</td>
+            <td>{{task.dueDate}}</td>
+            <td>{{task.estimate}}</td>
+            <td>{{task.spent}}</td>
+            <td>{{task.remaining}}</td>
+            <td>{{task.assignedEmployee.firstName}}</td>
+            <td>{{task.assignedProject.name}}</td>
+            <td>
+              <div class="col-sm-4">
+                <i class="fa fa-pencil projectIcons" aria-hidden="true" title="Edit" (click)="openTaskModal(task)"></i>
+              </div>
+              <div class="col-sm-4">
+                <i class="fa fa-line-chart projectIcons" aria-hidden="true" title="Show report"></i>
+              </div>
+              <div class="col-sm-4">
+                <i class="fa fa-trash projectIcons" aria-hidden="true" (click)="deleteTask(task)" title="Delete"></i>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </section>
+
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{header}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form novalidate (ngSubmit)="onSubmit(task)" [formGroup]="task">
+          <div class="form-group" [ngClass]="{'has-error':!task.controls['name'].valid && task.controls['name'].touched}">
+            <label for="name" class="control-label col-sm-2">Name</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="name" name="name" type="text" placeholder="name"></div>
+            <div *ngIf="task.controls['name'].hasError('required') && task.controls['name'].touched" class="alert alert-danger">You must add a name.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="control-label col-sm-2">Description</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="description" name="description" type="text" placeholder="description"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="startDate" class="control-label col-sm-2">Due Date</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="dueDate" name="dueDate" type="date" placeholder="due date"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="endDate" class="control-label col-sm-2">Estimate</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="estimate" name="estimate" type="number" placeholder="estimate"></div>
+          </div>
+          <div class="form-group">
+            <label for="budget" class="control-label col-sm-2">Spent</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="spent" name="spent" type="number" placeholder="spent"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="estimateHours" class="control-label col-sm-2">Remaining</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="remaining" name="remaining" type="number" placeholder="remaining"
+                min="0" max="100"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="employee" class="control-label col-sm-2">Assigned Employee</label>
+            <div class="col-sm-4">
+              <select class="form-control" name="employee" formControlName="assignedEmployee" (ngModelChange)="onChangeEmp($event)">
+                <option *ngFor="let employee of employees" [selected]="employee.firstName" [ngValue]="employee">{{employee.firstName}}</option>
+             </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="project" class="control-label col-sm-2">Assigned Project</label>
+            <div class="col-sm-4">
+              <select class="form-control" name="project" formControlName="assignedProject" (ngModelChange)="onChange($event)">
+                <option *ngFor="let project of projects" [selected]="project.name" [ngValue]="project">{{project.name}}</option>
+             </select>
+            </div>
+          </div>
+          <div>
+          </div>
+          <button class="btn btn-primary" type="submit">Submit</button>
+          <button type="button" class="btn btn-primary" aria-label="Close" (click)="hideChildModal()">Close</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!--
+          <button class="btn btn-primary" type="submit">Create</button>
+          <button type="button" class="btn btn-primary" aria-label="Close" (click)="hideChildModal()">Close</button>-->
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--<div class="btn-group" dropdown>
+            <button id="single-button" type="button" class="btn btn-primary" dropdownToggle>   
+    Status <span class="caret"></span>
+  </button>
+            <ul dropdownMenu role="menu" aria-labelledby="single-button">
+              <a class="dropdown-item" href="#" *ngFor="let status of statuses">{{status.name}}</a>
+
+              <li class="divider dropdown-divider"></li>
+              <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+          </div>-->

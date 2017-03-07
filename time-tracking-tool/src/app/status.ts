@@ -1,4 +1,4 @@
 export class Status {
-    value:number;
+    value: number;
     name: string;
 }

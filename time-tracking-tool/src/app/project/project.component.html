@@ -17,7 +17,7 @@
           </tr>
         </thead>
 
-        <tbody id="tasks">
+        <tbody>
           <tr *ngFor="let project of projects">
             <td>{{project.name}}</td>
             <td>{{project.description}}</td>
@@ -97,11 +97,10 @@
           <div class="form-group">
             <label for="status" class="control-label col-sm-2">Status</label>
             <div class="col-sm-4">
-              <select class="form-control" name="status" formControlName="status" (ngModelChange)="onChange($event)">Status
-                <option *ngFor="let status of statuses" [selected]="status.name" [ngValue]="status">{{status.name}}</option>
+              <select class="form-control" name="status" formControlName="status" [ngModel]="project.status" (ngModelChange)="onChange($event)">
+                <option [ngValue]="status" *ngFor="let status of statuses" >{{status.name}}</option>
              </select>
             </div>
-
           </div>
           <div>
           </div>
