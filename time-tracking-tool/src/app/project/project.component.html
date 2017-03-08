@@ -1,6 +1,6 @@
 <section>
   <button type="button" class="btn btn-primary addProjectButton" (click)="openProjectModal()">Add Project</button>
-  <div class="container projectsTable">
+  <div class="container-fluid projectsTable">
     <div class="row">
       <table class="table table-bordered col-sm-8">
         <thead class="thead-inverse">
@@ -29,13 +29,15 @@
             <td>{{project.assignedTeamLeader}}</td>
             <td>
               <div class="col-sm-4">
-                <i class="fa fa-pencil projectIcons" aria-hidden="true"  title="Edit" (click)="openProjectModal(project)"></i>
+                <i class="fa fa-pencil projectIcons" aria-hidden="true" title="Edit" (click)="openProjectModal(project)"></i>
               </div>
               <div class="col-sm-4">
+                <a routerLink="/reports/{{project.id}}">
                 <i class="fa fa-line-chart projectIcons" aria-hidden="true" title="Show report"></i>
+                </a>
               </div>
               <div class="col-sm-4">
-                <i class="fa fa-trash projectIcons" aria-hidden="true"  (click)="deleteProject(project)" title="Delete"></i>
+                <i class="fa fa-trash projectIcons" aria-hidden="true" title="Delete" (click)="deleteProject(project)"></i>
               </div>
             </td>
           </tr>
@@ -56,7 +58,7 @@
         </button>
       </div>
       <div class="modal-body">
-   
+
         <form novalidate (ngSubmit)="onSubmit(project)" [formGroup]="project">
           <div class="form-group" [ngClass]="{'has-error':!project.controls['name'].valid && project.controls['name'].touched}">
             <label for="name" class="control-label col-sm-2">Name</label>
@@ -97,12 +99,17 @@
           <div class="form-group">
             <label for="status" class="control-label col-sm-2">Status</label>
             <div class="col-sm-4">
-              <select class="form-control" name="status" formControlName="status" [ngModel]="project.status" (ngModelChange)="onChange($event)">
-                <option [ngValue]="status" *ngFor="let status of statuses" >{{status.name}}</option>
+              <select class="form-control" name="status" formControlName="status" [(ngModel)]="status">
+                <option *ngFor="let status of statuses" [ngValue]="status">{{status.name}}</option>
              </select>
+
+
+
+             <!--<h1>My Application</h1>
+<select [(ngModel)]="selectedValue">
+  <option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
+</select>-->
             </div>
-          </div>
-          <div>
           </div>
           <button class="btn btn-primary" type="submit">Submit</button>
           <button type="button" class="btn btn-primary" aria-label="Close" (click)="hideChildModal()">Close</button>

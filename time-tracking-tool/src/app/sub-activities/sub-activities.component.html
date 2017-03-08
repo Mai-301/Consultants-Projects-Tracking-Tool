@@ -1,6 +1,6 @@
 <section>
   <button type="button" class="btn btn-primary addProjectButton" (click)="openTaskModal()">Add Task</button>
-  <div class="container projectsTable">
+  <div class="container-fluid projectsTable">
     <div class="row">
       <table class="table table-bordered col-sm-8">
         <thead class="thead-inverse">
@@ -11,7 +11,6 @@
             <td>Estimate</td>
             <td>Spent</td>
             <td>Remaining</td>
-            <td>Assigned Employee</td>
             <td>Assigned Project</td>
             <td>Actions</td>
           </tr>
@@ -25,7 +24,6 @@
             <td>{{task.estimate}}</td>
             <td>{{task.spent}}</td>
             <td>{{task.remaining}}</td>
-            <td>{{task.assignedEmployee.firstName}}</td>
             <td>{{task.assignedProject.name}}</td>
             <td>
               <div class="col-sm-4">
@@ -90,22 +88,12 @@
           </div>
 
           <div class="form-group">
-            <label for="employee" class="control-label col-sm-2">Assigned Employee</label>
-            <div class="col-sm-4">
-              <select class="form-control" name="employee" formControlName="assignedEmployee" (ngModelChange)="onChangeEmp($event)">
-                <option *ngFor="let employee of employees" [selected]="employee.firstName" [ngValue]="employee">{{employee.firstName}}</option>
-             </select>
-            </div>
-          </div>
-          <div class="form-group">
             <label for="project" class="control-label col-sm-2">Assigned Project</label>
             <div class="col-sm-4">
-              <select class="form-control" name="project" formControlName="assignedProject" (ngModelChange)="onChange($event)">
-                <option *ngFor="let project of projects" [selected]="project.name" [ngValue]="project">{{project.name}}</option>
+              <select class="form-control" name="project" formControlName="assignedProject" ([ngModel])="task.assignedProject">
+                <option [ngValue]="project" *ngFor="let project of projects">{{project.name}}</option>
              </select>
             </div>
-          </div>
-          <div>
           </div>
           <button class="btn btn-primary" type="submit">Submit</button>
           <button type="button" class="btn btn-primary" aria-label="Close" (click)="hideChildModal()">Close</button>

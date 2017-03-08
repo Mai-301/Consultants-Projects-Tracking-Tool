@@ -1,5 +1,4 @@
 import { Project } from './project';
-import { Employee } from './employee';
 export class Task {
     id: number;
     name: string;
@@ -8,6 +7,5 @@ export class Task {
     estimate: number;
     spent: number;
     remaining: number;
-    assignedEmployee: Employee;
-    assignedProject: Project;
+    assignedProjectID: number;
 }

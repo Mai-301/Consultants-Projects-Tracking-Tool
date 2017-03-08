@@ -3,8 +3,6 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Task } from '../task';
 import { TaskService } from '../task.service';
-import { Employee } from '../employee';
-import { EmployeeService } from '../employee.service';
 import { Project } from '../project';
 import { ProjectService } from '../project.service';
 import * as _ from 'lodash';
@@ -16,14 +14,12 @@ import * as _ from 'lodash';
 export class SubActivitiesComponent implements OnInit {
   tasks: Task[];
   projects: Project[];
-  employees: Employee[];
   task: FormGroup;
   header: string;
   @ViewChild('childModal') public childModal: ModalDirective;
-  constructor(private taskService: TaskService, private fb: FormBuilder, private employeeService: EmployeeService, private projectService: ProjectService) {
-    this.employees = this.employeeService.getEmployees();
-    this.projects = this.projectService.getProjects();
+  constructor(private taskService: TaskService, private fb: FormBuilder, private projectService: ProjectService) {
     this.tasks = this.taskService.getTasks();
+    this.projects = this.projectService.getProjects();
     this.createTaskForm();
   }
   createTaskForm(task?: Task): void {
@@ -36,8 +32,7 @@ export class SubActivitiesComponent implements OnInit {
         estimate: [task.estimate, Validators.required],
         spent: task.spent,
         remaining: task.remaining,
-        assignedEmployee: task.assignedEmployee,
-        assignedProject: task.assignedProject
+        assignedProject: task.assignedProjectID
       });
       this.header = 'Edit task';
     }
@@ -50,7 +45,6 @@ export class SubActivitiesComponent implements OnInit {
         estimate: ['', Validators.required],
         spent: '',
         remaining: '',
-        assignedEmployee: '',
         assignedProject: ''
       });
       this.header = 'Add task';
@@ -58,12 +52,6 @@ export class SubActivitiesComponent implements OnInit {
   }
   ngOnInit() {
 
-  }
-  onChange() {
-
-  }
-  onChangeEmp(){
-    
   }
   openTaskModal(task?: Task): void {
     this.createTaskForm(task);

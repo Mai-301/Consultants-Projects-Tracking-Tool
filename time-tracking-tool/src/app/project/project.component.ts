@@ -6,13 +6,14 @@ import { Status } from '../status';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
+import { LocalStorage, SessionStorage } from 'angular2-localstorage/WebStorage';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-  projects: Project[];
+  @LocalStorage('currnetProjects') projects: Project[];
   statuses: Status[];
   project: FormGroup;
   header: string;
@@ -55,11 +56,11 @@ export class ProjectComponent implements OnInit {
   ngOnInit() {
 
   }
-  onChange(event: Event) {
-    // if (event) {
-    //   this.project.controls['status'].patchValue(event);
-    // }
-
+  onChangeStatus(status: Status) {
+    console.log(status);
+    if (status instanceof Status) {
+      this.project.controls['status'].patchValue(status);
+    }
   }
   openProjectModal(project?: Project): void {
     this.createProjectForm(project);

@@ -24,6 +24,14 @@ export class ProjectService {
       assignedTeamLeader: "Abd ElRahman"
     }];
   }
+  getById(id: number): Project {
+    for (const project of this.projects) {
+      if (project.id == id) {
+        return project;
+      }
+    }
+    return null;
+  }
   getProjects(): Project[] {
     return this.projects;
   }

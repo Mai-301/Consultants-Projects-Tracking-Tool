@@ -18,8 +18,13 @@ import { DropdownModule } from 'ng2-bootstrap';
 import { LocalStorageService } from 'angular2-localstorage';
 import { TaskService } from './task.service';
 import { EmployeeService } from './employee.service';
-const appRoutes: Routes = [{ path: 'project', component: ProjectComponent },
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChartModule } from 'angular2-highcharts';
+import { ReportComponent } from './report/report.component';
+
+const appRoutes: Routes = [{ path: 'projects', component: ProjectComponent },
 { path: 'subActivities', component: SubActivitiesComponent },
+{ path: 'reports/:id', component: ReportComponent },
 { path: '', redirectTo: '/', pathMatch: 'full' }];
 
 @NgModule({
@@ -30,13 +35,14 @@ const appRoutes: Routes = [{ path: 'project', component: ProjectComponent },
     ProjectComponent,
     SideBarComponent,
     SubActivitiesComponent,
-    NavLinkComponent
+    NavLinkComponent,
+    DashboardComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
     FormsModule, ReactiveFormsModule,
-    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(), DropdownModule.forRoot()
-
+    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(), DropdownModule.forRoot(),FormsModule,ChartModule.forRoot(require('highcharts'))
   ],
   providers: [ProjectService, StatusService, TaskService, EmployeeService, LocalStorageService],
   bootstrap: [AppComponent]
