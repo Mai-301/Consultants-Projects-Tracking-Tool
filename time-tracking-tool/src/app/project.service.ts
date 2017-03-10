@@ -6,23 +6,9 @@ import { LocalStorage, SessionStorage } from 'angular2-localstorage/WebStorage';
 @Injectable()
 export class ProjectService {
   private index: number = 0;
-  @LocalStorage('projects') projects: Project[];
+  @LocalStorage('updatedProjects') projects: Project[];
   constructor(private statusService: StatusService) {
-    this.projects = [{
-      id: 1, name: "DNX", description: "whatever", startDate: "10/02/2016",
-      endDate: "10/02/2016",
-      status: this.statusService.getStatuses()[0],
-      budget: 50000,
-      estimateHours: 50,
-      assignedTeamLeader: "Adry"
-    }, {
-      id: 2, name: "iMore", description: "whatever", startDate: "10/02/2016",
-      endDate: "10/02/2016",
-      status: this.statusService.getStatuses()[1],
-      budget: 50000,
-      estimateHours: 50,
-      assignedTeamLeader: "Abd ElRahman"
-    }];
+    this.projects = [];
   }
   getById(id: number): Project {
     for (const project of this.projects) {
@@ -40,6 +26,8 @@ export class ProjectService {
     this.projects.push(project);
   }
   deleteProject(project: Project): void {
+    let index = this.projects.indexOf(project);   
     this.projects.splice(this.projects.indexOf(project), 1);
   }
+
 }

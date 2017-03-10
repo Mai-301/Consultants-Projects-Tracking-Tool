@@ -12,7 +12,6 @@
             <td>Status</td>
             <td>Budget</td>
             <td>Estimate Hours</td>
-            <td>Assigned Team Leader</td>
             <td>Actions</td>
           </tr>
         </thead>
@@ -23,17 +22,16 @@
             <td>{{project.description}}</td>
             <td>{{project.startDate}}</td>
             <td>{{project.endDate}}</td>
-            <td>{{project.status.name}}</td>
+            <td>{{project.status}}</td>
             <td>{{project.budget}}</td>
             <td>{{project.estimateHours}}</td>
-            <td>{{project.assignedTeamLeader}}</td>
             <td>
               <div class="col-sm-4">
                 <i class="fa fa-pencil projectIcons" aria-hidden="true" title="Edit" (click)="openProjectModal(project)"></i>
               </div>
               <div class="col-sm-4">
                 <a routerLink="/reports/{{project.id}}">
-                <i class="fa fa-line-chart projectIcons" aria-hidden="true" title="Show report"></i>
+                  <i class="fa fa-line-chart projectIcons" aria-hidden="true" title="Show report"></i>
                 </a>
               </div>
               <div class="col-sm-4">
@@ -91,24 +89,12 @@
                 min="0" max="100"></div>
           </div>
 
-
-          <div class="form-group">
-            <label for="assignedTeamLeader" class="control-label col-sm-2">Assigned Team leader</label>
-            <div class="col-sm-4"><input class="form-control" formControlName="assignedTeamLeader" name="assignedTeamLeader" type="search" placeholder="Assigned Team Leader"></div>
-          </div>
           <div class="form-group">
             <label for="status" class="control-label col-sm-2">Status</label>
             <div class="col-sm-4">
               <select class="form-control" name="status" formControlName="status" [(ngModel)]="status">
-                <option *ngFor="let status of statuses" [ngValue]="status">{{status.name}}</option>
+                <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
              </select>
-
-
-
-             <!--<h1>My Application</h1>
-<select [(ngModel)]="selectedValue">
-  <option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
-</select>-->
             </div>
           </div>
           <button class="btn btn-primary" type="submit">Submit</button>

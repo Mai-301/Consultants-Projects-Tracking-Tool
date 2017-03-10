@@ -5,8 +5,7 @@ export class Project {
     description: string;
     startDate: string;
     endDate: string;
-    status: Status;
+    status: string;
     budget: number;
     estimateHours: number;
-    assignedTeamLeader: string;
 }

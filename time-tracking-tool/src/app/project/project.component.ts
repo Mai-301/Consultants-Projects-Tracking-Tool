@@ -1,25 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProjectService } from '../project.service';
-import { StatusService } from '../status.service';
 import { Project } from '../project';
-import { Status } from '../status';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
-import { LocalStorage, SessionStorage } from 'angular2-localstorage/WebStorage';
+
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-  @LocalStorage('currnetProjects') projects: Project[];
-  statuses: Status[];
+  projects: Project[];
+  statuses: string[];
   project: FormGroup;
   header: string;
   @ViewChild('childModal') public childModal: ModalDirective;
-  constructor(private statusService: StatusService, private projectService: ProjectService, private fb: FormBuilder) {
-    this.statuses = this.statusService.getStatuses();
+  constructor(private projectService: ProjectService, private fb: FormBuilder) {
+    this.statuses = ["Active", "Freezed", "Finished"];
     this.projects = this.projectService.getProjects();
     this.createProjectForm();
   }
@@ -33,8 +31,7 @@ export class ProjectComponent implements OnInit {
         endDate: [project.endDate, Validators.required],
         status: [project.status, Validators.required],
         budget: [project.budget, Validators.required],
-        estimateHours: [project.estimateHours, Validators.required],
-        assignedTeamLeader: project.assignedTeamLeader
+        estimateHours: [project.estimateHours, Validators.required]
       });
       this.header = 'Edit Project';
     }
@@ -47,8 +44,7 @@ export class ProjectComponent implements OnInit {
         endDate: ['', Validators.required],
         status: ['', Validators.required],
         budget: ['', Validators.required],
-        estimateHours: ['', Validators.required],
-        assignedTeamLeader: ''
+        estimateHours: ['', Validators.required]
       });
       this.header = 'Add Project';
     }
@@ -56,11 +52,8 @@ export class ProjectComponent implements OnInit {
   ngOnInit() {
 
   }
-  onChangeStatus(status: Status) {
-    console.log(status);
-    if (status instanceof Status) {
-      this.project.controls['status'].patchValue(status);
-    }
+  onChangeStatus(status: string) {
+    this.project.controls['status'].patchValue(status);
   }
   openProjectModal(project?: Project): void {
     this.createProjectForm(project);

@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Task } from './task';
-import { LocalStorage, SessionStorage } from 'angular2-localstorage/WebStorage';
+import { Project } from './project';
 import { ProjectService } from './project.service';
+import { LocalStorage, SessionStorage } from 'angular2-localstorage/WebStorage';
 @Injectable()
 export class TaskService {
   private index: number = 0;
-  @LocalStorage('tasks') tasks: Task[];
-  constructor(private projectService: ProjectService) {
+  @LocalStorage('updatedTasks') tasks: Task[];
+  constructor() {
     this.tasks = [];
-      // { id: 1, name: 'Task1', description: 'task1 description', dueDate: '02/05/2017', estimate: 12, spent: 0, remaining: 12, assignedProjectID: 0 },
-      // { id: 2, name: 'Task2', description: 'task2 description', dueDate: '02/16/2017', estimate: 5, spent: 0, remaining: 5, assignedProjectID: 1 }];
   }
   getTasks(): Task[] {
     return this.tasks;
@@ -20,6 +19,26 @@ export class TaskService {
   }
   deleteTask(task: Task): void {
     this.tasks.splice(this.tasks.indexOf(task), 1);
+  }
+  getById(id: number): Task {
+    for (const task of this.tasks) {
+      if (task.id == id) {
+        return task;
+      }
+    }
+    return null;
+  }
+  trackTask(id: number, spentHours: number): number {
+    let task = this.getById(id);
+    return task.remaining = task.estimate - spentHours;
+  }
+  getProjectTasks(projectId: number): Task[] {
+    let tasks = [];
+    for (const task of this.getTasks()) {
+      if (task.assignedProjectID == projectId)
+        tasks.push(task);
+    }
+    return tasks;
   }
 }
 

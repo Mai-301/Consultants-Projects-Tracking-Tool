@@ -1,4 +1,3 @@
-import { Project } from './project';
 export class Task {
     id: number;
     name: string;
@@ -8,4 +7,5 @@ export class Task {
     spent: number;
     remaining: number;
     assignedProjectID: number;
+    assignedProjectName:string;
 }
