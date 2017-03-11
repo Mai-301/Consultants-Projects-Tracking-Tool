@@ -27,3 +27,6 @@ html, body {
 .projectIcons{
     cursor: pointer;
 }
+.container-fluid{
+    height:90%;
+}

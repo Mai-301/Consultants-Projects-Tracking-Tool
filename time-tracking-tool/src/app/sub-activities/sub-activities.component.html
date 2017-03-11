@@ -11,6 +11,7 @@
             <td>Estimate</td>
             <td>Spent</td>
             <td>Remaining</td>
+            <td>Employee</td>
             <td>Actions</td>
           </tr>
         </thead>
@@ -23,7 +24,10 @@
             <td>{{task.estimate}}</td>
             <td>{{task.spent}}</td>
             <td>{{task.remaining}}</td>
-            
+            <td><select (change)="onEmployeeChange($event.target.value,task)">
+               <option *ngFor="let employee of employees" [value]="employee.id">{{employee.firstName}}</option>
+            </select>
+            </td>
             <td>
               <div class="col-sm-4">
                 <i class="fa fa-pencil projectIcons" aria-hidden="true" title="Edit" (click)="openTaskModal(task)"></i>
@@ -34,6 +38,10 @@
               <div class="col-sm-4">
                 <i class="fa fa-trash projectIcons" aria-hidden="true" (click)="deleteTask(task)" title="Delete"></i>
               </div>
+              <!--<div class="col-sm-3">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </div>-->
+
             </td>
           </tr>
         </tbody>
@@ -106,15 +114,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
 
 
 

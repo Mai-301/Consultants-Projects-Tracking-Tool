@@ -3,6 +3,7 @@
   <select class="form-control" name="project" [ngModel]="selectedProject" (ngModelChange)="onChange($event)">
     <option *ngFor="let project of projects" [ngValue]="project">{{project.name}}</option>
   </select>-->
+  <label>Project progress: {{progress}}%</label>
   <chart [options]="options"></chart>
   <!--<button (click)="showReport()">Show project's report</button>
 </div>-->

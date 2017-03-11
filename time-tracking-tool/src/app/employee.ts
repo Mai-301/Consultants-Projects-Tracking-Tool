@@ -6,6 +6,6 @@ export class Employee {
     email: string;
     phoneNumber: number;
     role: string;
-    // assignedTask: Task;
-    totalWorkDuration: number;
+    tasks: Task[];
+    totalWorkDuration: number = 0;
 }

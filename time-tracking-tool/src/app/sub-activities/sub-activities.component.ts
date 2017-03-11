@@ -5,6 +5,8 @@ import { Task } from '../task';
 import { TaskService } from '../task.service';
 import { Project } from '../project';
 import { ProjectService } from '../project.service';
+import { EmployeeService } from '../employee.service';
+import { Employee } from '../employee';
 import * as _ from 'lodash';
 import { SelectModule } from 'ng2-select';
 @Component({
@@ -17,11 +19,12 @@ export class SubActivitiesComponent implements OnInit {
   projects: Project[];
   task: FormGroup;
   header: string;
-
+  employees:Employee[];
   @ViewChild('childModal') public childModal: ModalDirective;
-  constructor(private taskService: TaskService, private fb: FormBuilder, private projectService: ProjectService) {
+  constructor(private taskService: TaskService, private fb: FormBuilder, private projectService: ProjectService,private employeeService:EmployeeService) {
     this.tasks = this.taskService.getTasks();
     this.projects = this.projectService.getProjects();
+    this.employees=this.employeeService.getEmployees();
     this.createTaskForm();
 
   }
@@ -35,7 +38,6 @@ export class SubActivitiesComponent implements OnInit {
         dueDate: [task.dueDate, Validators.required],
         estimate: [task.estimate, Validators.required],
         spent: task.spent,
-        // remaining: task.remaining,
         assignedProjectID: task.assignedProjectID
       });
       this.header = 'Edit task';
@@ -48,7 +50,6 @@ export class SubActivitiesComponent implements OnInit {
         dueDate: ['', Validators.required],
         estimate: ['', Validators.required],
         spent: '',
-        // remaining: '',
         assignedProjectID: ''
       });
       this.header = 'Add task';
@@ -77,18 +78,25 @@ export class SubActivitiesComponent implements OnInit {
       for (const task of projectTasks) {
         taskHours += task.estimate;
       }
-      if (taskHours > this.projectService.getById(value.assignedProjectID).estimateHours)
-        return;
 
       if (taskIndex === -1) {
+        if (taskHours + value.estimate > this.projectService.getById(value.assignedProjectID).estimateHours)
+          return;
         this.taskService.addTask(value)
       } else {
+        if (taskHours > this.projectService.getById(value.assignedProjectID).estimateHours)
+          return;
         value.remaining = this.taskService.trackTask(taskIndex, value.spent);
         this.tasks.splice(taskIndex, 1, value);
       }
       this.childModal.hide();
       this.reset();
     }
+  }
+  onEmployeeChange(employeeId:number,task:Task){
+    let employee=this.employeeService.getById(employeeId);
+    employee.totalWorkDuration+=task.spent;
+    console.log(employee.totalWorkDuration);
   }
   reset(): void {
     this.createTaskForm();
