@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+main{
+    height: 90%;
+}
+html, body { 
+    height: 100%;
+}
+.modal-body{
+    overflow: auto;
+}
+.submitButtons{
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+.addProjectButton{
+    height: 10%;
+}
+.projectsTable{
+    height: 90%;
+    border: 1px black solid;
+    background-color: lightsteelblue;
+}
+.table-bordered>tbody>tr>td, .table-bordered>thead>tr>td{
+    border: 1px solid black;
+}
+.projectIcons{
+    cursor: pointer;
+}
+.container-fluid{
+    padding-top: 150px;
+    height:90%;
+}
