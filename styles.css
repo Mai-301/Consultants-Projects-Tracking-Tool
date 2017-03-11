@@ -28,6 +28,6 @@ html, body {
     cursor: pointer;
 }
 .container-fluid{
-    padding-top: 150px;
+    /*padding-top: 150px;*/
     height:90%;
 }
