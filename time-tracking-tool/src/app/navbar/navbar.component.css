@@ -1,3 +1,8 @@
  .navbar-brand{
      height: 100px;
  }
+.btn-logout {
+  width: 100%;
+  padding: 3px 20px !important;
+  text-align: left !important;
+}

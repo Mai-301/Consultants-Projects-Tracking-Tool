@@ -1,4 +1,3 @@
-import { Status } from './status';
 export class Project {
     id: number;
     name: string;
@@ -8,4 +7,5 @@ export class Project {
     status: string;
     budget: number;
     estimateHours: number;
+    
 }

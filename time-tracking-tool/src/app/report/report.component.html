@@ -1,9 +1,11 @@
-<!--<label for="project" class="control-label col-sm-2">Select a project</label>
-<div class="col-sm-4">
-  <select class="form-control" name="project" [ngModel]="selectedProject" (ngModelChange)="onChange($event)">
-    <option *ngFor="let project of projects" [ngValue]="project">{{project.name}}</option>
-  </select>-->
-  <label>Project progress: {{progress}}%</label>
-  <chart [options]="options"></chart>
-  <!--<button (click)="showReport()">Show project's report</button>
-</div>-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6" *ngFor="let chartOption of chartsOptions">
+      <chart [options]="chartOption"></chart>
+    </div>
+    <div class="col-md-12" *ngIf="noChartsFlag">
+      <label>Sorry, all project's task actual work hours should have been set</label>
+    </div>
+  </div>
+</div>
+

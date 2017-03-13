@@ -30,3 +30,6 @@ html, body {
 .container-fluid{
     height:90%;
 }
+#mainComponent{
+    padding-top: 100px;
+}

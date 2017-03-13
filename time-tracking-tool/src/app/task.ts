@@ -4,8 +4,8 @@ export class Task {
     description: string;
     dueDate: string;
     estimate: number;
-    spent: number;
-    remaining: number;
+    actual: number;
     assignedProjectID: number;
-    assignedProjectName:string;
+    assignedProjectName:string;   
+    
 }

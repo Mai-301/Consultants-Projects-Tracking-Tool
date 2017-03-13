@@ -9,9 +9,7 @@
             <td>Description</td>
             <td>Due Date</td>
             <td>Estimate</td>
-            <td>Spent</td>
-            <td>Remaining</td>
-            <td>Employee</td>
+            <td>Actual</td>
             <td>Actions</td>
           </tr>
         </thead>
@@ -22,20 +20,12 @@
             <td>{{task.description}}</td>
             <td>{{task.dueDate}}</td>
             <td>{{task.estimate}}</td>
-            <td>{{task.spent}}</td>
-            <td>{{task.remaining}}</td>
-            <td><select (change)="onEmployeeChange($event.target.value,task)">
-               <option *ngFor="let employee of employees" [value]="employee.id">{{employee.firstName}}</option>
-            </select>
-            </td>
+            <td>{{task.actual}}</td>
             <td>
-              <div class="col-sm-4">
+              <div class="col-sm-2">
                 <i class="fa fa-pencil projectIcons" aria-hidden="true" title="Edit" (click)="openTaskModal(task)"></i>
               </div>
-              <div class="col-sm-4">
-                <i class="fa fa-line-chart projectIcons" aria-hidden="true" title="Show report"></i>
-              </div>
-              <div class="col-sm-4">
+              <div class="col-sm-2">
                 <i class="fa fa-trash projectIcons" aria-hidden="true" (click)="deleteTask(task)" title="Delete"></i>
               </div>
               <!--<div class="col-sm-3">
@@ -83,16 +73,7 @@
             <label for="endDate" class="control-label col-sm-2">Estimate</label>
             <div class="col-sm-4"><input class="form-control" formControlName="estimate" name="estimate" type="number" placeholder="estimate"></div>
           </div>
-          <div class="form-group">
-            <label for="budget" class="control-label col-sm-2">Spent</label>
-            <div class="col-sm-4"><input class="form-control" formControlName="spent" name="spent" type="number" placeholder="spent"></div>
-          </div>
-
-          <!--<div class="form-group">
-            <label for="estimateHours" class="control-label col-sm-2">Remaining</label>
-            <div class="col-sm-4"><input class="form-control" formControlName="remaining" name="remaining" type="number" placeholder="remaining"></div>
-          </div>-->
-
+          
           <div class="form-group">
             <label for="project" class="control-label col-sm-2">Assigned Project</label>
             <div class="col-sm-4">

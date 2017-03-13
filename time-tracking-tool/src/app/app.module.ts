@@ -12,7 +12,6 @@ import { SubActivitiesComponent } from './sub-activities/sub-activities.componen
 import { NavLinkComponent } from './nav-link/nav-link.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectService } from './project.service';
-import { StatusService } from './status.service';
 import { ModalModule } from 'ng2-bootstrap';
 import { DropdownModule } from 'ng2-bootstrap';
 import { LocalStorageService } from 'angular2-localstorage';
@@ -21,11 +20,25 @@ import { EmployeeService } from './employee.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartModule } from 'angular2-highcharts';
 import { ReportComponent } from './report/report.component';
+import { AdminComponent } from './admin/admin.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './login/login.component';
 
-const appRoutes: Routes = [{ path: 'projects', component: ProjectComponent },
-{ path: 'subActivities', component: SubActivitiesComponent },
-{ path: 'reports/:id', component: ReportComponent },
-{ path: '', redirectTo: '/', pathMatch: 'full' }];
+
+const appRoutes: Routes = [
+
+  {
+    path: 'admin', component: AdminComponent,
+    children: [
+      { path: 'projects', component: ProjectComponent },
+      { path: 'subActivities', component: SubActivitiesComponent },
+      { path: 'projects/reports/:id', component: ReportComponent }
+    ]
+  }
+  , { path: 'employee', component: EmployeeComponent },
+  { path: '', component: LoginComponent }
+];
 
 @NgModule({
   declarations: [
@@ -37,14 +50,18 @@ const appRoutes: Routes = [{ path: 'projects', component: ProjectComponent },
     SubActivitiesComponent,
     NavLinkComponent,
     DashboardComponent,
-    ReportComponent
+    ReportComponent,
+    AdminComponent,
+    EmployeeComponent,
+    FooterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule, ReactiveFormsModule,
-    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(), DropdownModule.forRoot(),FormsModule,ChartModule.forRoot(require('highcharts'))
+    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(), DropdownModule.forRoot(), FormsModule, ChartModule.forRoot(require('highcharts'))
   ],
-  providers: [ProjectService, StatusService, TaskService, EmployeeService, LocalStorageService],
+  providers: [ProjectService, TaskService, EmployeeService, LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,7 +3,6 @@ import { ProjectService } from '../project.service';
 import { TaskService } from '../task.service';
 import { Project } from '../project';
 import { Task } from '../task';
-
 import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-report',
@@ -13,9 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 export class ReportComponent implements OnInit {
   projectTasks: Task[];
   selectedProject: Project;
-  options: Object;
-  accumalatedSpentTaskHours: number = 0;
-  progress: number = 0;
+  chartsOptions: Object[] = [];
+  noChartsFlag: boolean = false;
   constructor(private route: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService) {
   }
 
@@ -23,37 +21,61 @@ export class ReportComponent implements OnInit {
     this.route.params.subscribe(p => {
       this.selectedProject = this.projectService.getById(p['id']);
       this.projectTasks = this.taskService.getProjectTasks(p['id']);
-      for (let task of this.projectTasks) {
-        this.accumalatedSpentTaskHours += task.spent;
-      }
-      this.progress = (this.accumalatedSpentTaskHours / this.selectedProject.estimateHours) * 100;
-      this.showReport();
+      this.prepareData();
     });
   }
 
-  showReport() {
-    let yAxix = [];
-    let xAxis = [];
+  prepareData() {
+    let actualSeries = [];
+    let estimateSeries = [];
+    let chartSerieses = [];
     for (const task of this.projectTasks) {
-      yAxix.push(task.spent);
-      xAxis.push(task.name);
-    }
-    this.options = {
-      chart: { type: 'column' },
-      title: { text: 'Project ' + this.selectedProject.name + ' chart' },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'Total hours'
-        }
-      },
-      series: [{
-        data: yAxix
-      }],
-     
-       xAxis: {
-        categories: xAxis
+      if (task.actual === undefined) {
+        this.noChartsFlag = true;
+        return;
       }
-    };
+
+      const actualTaskHours: { name: string, y: number } = { name: task.name, y: task.actual };
+      const estimateTaskHours: { name: string, y: number } = { name: task.name, y: task.estimate };
+      actualSeries.push(actualTaskHours);
+      estimateSeries.push(estimateTaskHours);
+    }
+    chartSerieses.push(actualSeries);
+    chartSerieses.push(estimateSeries);
+    this.drawCharts(chartSerieses);
   }
+
+  drawCharts(chartSerieses: Array<Array<Object>>) {
+    for (let i = 0; i < chartSerieses.length; i++) {
+      let chartObj = {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: false
+            },
+            showInLegend: true
+          }
+        },
+        series: [{
+          name: 'Tasks',
+          colorByPoint: true,
+          data: chartSerieses[i]
+        }]
+      };
+      this.chartsOptions.push(chartObj);
+    }
+  }
+
+
 }

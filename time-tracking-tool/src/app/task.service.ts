@@ -5,8 +5,8 @@ import { ProjectService } from './project.service';
 import { LocalStorage, SessionStorage } from 'angular2-localstorage/WebStorage';
 @Injectable()
 export class TaskService {
-  private index: number = 0;
-  @LocalStorage('updatedTasks') tasks: Task[];
+  @LocalStorage('taskIndex') private index: number=0;
+  @LocalStorage('taskList') tasks: Task[];
   constructor() {
     this.tasks = [];
   }
@@ -14,7 +14,7 @@ export class TaskService {
     return this.tasks;
   }
   addTask(task: Task): void {
-    task.id = this.index++;
+    task.id = ++this.index;
     this.tasks.push(task);
   }
   deleteTask(task: Task): void {
@@ -28,9 +28,9 @@ export class TaskService {
     }
     return null;
   }
-  trackTask(id: number, spentHours: number): number {
+  trackTask(id: number, actualHours: number): void {
     let task = this.getById(id);
-    return task.remaining = task.estimate - spentHours;
+    task && (task.actual = actualHours);
   }
   getProjectTasks(projectId: number): Task[] {
     let tasks = [];

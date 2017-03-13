@@ -25,8 +25,8 @@ export class ProjectComponent implements OnInit {
     if (project) {
       this.project = this.fb.group({
         id: project.id,
-        name: [project.name, [Validators.required, Validators.minLength(5)]],
-        description: [project.description, Validators.minLength(10)],
+        name: [project.name, Validators.required],
+        description: project.description,
         startDate: [project.startDate, Validators.required],
         endDate: [project.endDate, Validators.required],
         status: [project.status, Validators.required],
@@ -38,8 +38,8 @@ export class ProjectComponent implements OnInit {
     else {
       this.project = this.fb.group({
         id: [''],
-        name: ['', [Validators.required, Validators.minLength(5)]],
-        description: ['', Validators.minLength(10)],
+        name: ['', Validators.required],
+        description: '',
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
         status: ['', Validators.required],
@@ -80,7 +80,6 @@ export class ProjectComponent implements OnInit {
   editProject(project: Project): void {
     this.createProjectForm(project);
     this.childModal.show();
-
   }
   deleteProject(project: Project): void {
     this.projectService.deleteProject(project);
