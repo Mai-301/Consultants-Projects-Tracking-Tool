@@ -24,10 +24,9 @@ import { AdminComponent } from './admin/admin.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
-
+import { SidebarModule } from 'ng-sidebar';
 
 const appRoutes: Routes = [
-
   {
     path: 'admin', component: AdminComponent,
     children: [
@@ -59,7 +58,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule, ReactiveFormsModule,
-    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(), DropdownModule.forRoot(), FormsModule, ChartModule.forRoot(require('highcharts'))
+    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(), DropdownModule.forRoot(), FormsModule, ChartModule.forRoot(require('highcharts')),SidebarModule
   ],
   providers: [ProjectService, TaskService, EmployeeService, LocalStorageService],
   bootstrap: [AppComponent]

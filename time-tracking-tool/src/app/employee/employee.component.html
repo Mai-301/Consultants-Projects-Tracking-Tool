@@ -23,7 +23,7 @@
           <label for="actualHours" class="control-label ">Actual hours</label>
           <div class=""><input class="form-control" formControlName="actualHours" name="actualHours" type="number" min="0"></div>
         </div>
-        <button class="btn btn-primary col-md-offset-5 col-sm-offset-6 col-xs-offset-5" type="submit">Submit</button>
+        <button class="btn btn-primary col-md-offset-5 col-sm-offset-6 col-xs-offset-5" type="submit" [disabled]="empData.invalid">Submit</button>
       </form>
     </div>
     <div class="col-md-4 ">

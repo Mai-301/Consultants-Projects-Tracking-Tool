@@ -5,7 +5,7 @@ import { LocalStorage, SessionStorage } from 'angular2-localstorage/WebStorage';
 @Injectable()
 export class ProjectService {
   @LocalStorage('projectIndex') private index: number = 0;
-  @LocalStorage('projectList') projects: Project[];
+  @LocalStorage('projectsList') projects: Project[];
   constructor() {
     this.projects = [];
   }

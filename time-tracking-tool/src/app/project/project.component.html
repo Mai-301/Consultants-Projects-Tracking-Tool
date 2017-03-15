@@ -1,5 +1,6 @@
 <section>
-  <button type="button" class="btn btn-primary addProjectButton" (click)="openProjectModal()">Add Project</button>
+  <i class="fa fa-plus-circle fa-3x" aria-hidden="true" (click)="openProjectModal()" title="Add Project"></i>
+  <!--<button type="button" class="btn btn-primary addProjectButton" (click)="openProjectModal()">Add Project</button>-->
   <div class="container-fluid projectsTable">
     <div class="row">
       <table class="table table-bordered col-sm-8">
@@ -9,9 +10,9 @@
             <td>Description</td>
             <td>Start Date</td>
             <td>End Date</td>
-            <td>Status</td>
+            <!--<td>Status</td>-->
             <td>Budget</td>
-            <td>Estimate Hours</td>
+            <!--<td>Estimate Hours</td>-->
             <td>Actions</td>
           </tr>
         </thead>
@@ -22,9 +23,9 @@
             <td>{{project.description}}</td>
             <td>{{project.startDate}}</td>
             <td>{{project.endDate}}</td>
-            <td>{{project.status}}</td>
+            <!--<td>{{project.status}}</td>-->
             <td>{{project.budget}}</td>
-            <td>{{project.estimateHours}}</td>
+            <!--<td>{{project.estimateHours}}</td>-->
             <td>
               <div class="col-sm-4">
                 <i class="fa fa-pencil projectIcons" aria-hidden="true" title="Edit" (click)="openProjectModal(project)"></i>
@@ -58,53 +59,35 @@
       <div class="modal-body">
 
         <form novalidate (ngSubmit)="onSubmit(project)" [formGroup]="project">
-          <div class="form-group" [ngClass]="{'has-error':!project.controls['name'].valid && project.controls['name'].touched}">
+          <div class="form-group">
             <label for="name" class="control-label col-sm-2">Name</label>
-            <div class="col-sm-4"><input class="form-control" formControlName="name" name="name" type="text" placeholder="name"></div>
-            <div *ngIf="project.controls['name'].hasError('required') && project.controls['name'].touched" class="alert alert-danger">You must add a name.</div>
+            <div class="col-sm-4"><input class="form-control" formControlName="name" name="name" type="text"></div>
           </div>
 
           <div class="form-group">
             <label for="description" class="control-label col-sm-2">Description</label>
-            <div class="col-sm-4"><input class="form-control" formControlName="description" name="description" type="text" placeholder="description"></div>
+            <div class="col-sm-4"><input class="form-control" formControlName="description" name="description" type="text"></div>
           </div>
 
           <div class="form-group">
             <label for="startDate" class="control-label col-sm-2">Start Date</label>
-            <div class="col-sm-4"><input class="form-control" formControlName="startDate" name="startDate" type="date" placeholder="start date"></div>
+            <div class="col-sm-4"><input class="form-control" formControlName="startDate" name="startDate" type="date"></div>
           </div>
 
           <div class="form-group">
             <label for="endDate" class="control-label col-sm-2">End Date</label>
-            <div class="col-sm-4"><input class="form-control" formControlName="endDate" name="endDate" type="date" placeholder="end date"></div>
+            <div class="col-sm-4"><input class="form-control" formControlName="endDate" name="endDate" type="date"></div>
           </div>
           <div class="form-group">
             <label for="budget" class="control-label col-sm-2">Budget</label>
-            <div class="col-sm-4"><input class="form-control" formControlName="budget" name="budget" type="number" placeholder="budget"></div>
+            <div class="col-sm-4"><input class="form-control" formControlName="budget" name="budget" type="number"></div>
           </div>
-
-          <div class="form-group">
-            <label for="estimateHours" class="control-label col-sm-2">Estimate hours</label>
-            <div class="col-sm-4"><input class="form-control" formControlName="estimateHours" name="estimateHours" type="number" placeholder="estimate hours"
-                min="0" max="100"></div>
-          </div>
-
-          <div class="form-group">
-            <label for="status" class="control-label col-sm-2">Status</label>
-            <div class="col-sm-4">
-              <select class="form-control" name="status" formControlName="status" [(ngModel)]="status">
-                <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
-             </select>
-            </div>
-          </div>
-          <button class="btn btn-primary" type="submit">Submit</button>
-          <button type="button" class="btn btn-primary" aria-label="Close" (click)="hideChildModal()">Close</button>
+          
         </form>
       </div>
       <div class="modal-footer">
-        <!--
-          <button class="btn btn-primary" type="submit">Create</button>
-          <button type="button" class="btn btn-primary" aria-label="Close" (click)="hideChildModal()">Close</button>-->
+        <button class="btn btn-primary" type="submit" (click)="onSubmit(project)" [disabled]="project.invalid">Submit</button>
+          <button type="button" class="btn btn-primary" aria-label="Close" (click)="hideChildModal()">Close</button>
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@ import { LocalStorage, SessionStorage } from 'angular2-localstorage/WebStorage';
 @Injectable()
 export class TaskService {
   @LocalStorage('taskIndex') private index: number=0;
-  @LocalStorage('taskList') tasks: Task[];
+  @LocalStorage('tasksList') tasks: Task[];
   constructor() {
     this.tasks = [];
   }

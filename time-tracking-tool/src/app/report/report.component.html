@@ -1,11 +1,16 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-6" *ngFor="let chartOption of chartsOptions">
-      <chart [options]="chartOption"></chart>
+    <div *ngIf="!noChartsFlag && !noProjectTasksFlag">
+      <label class="col-md-offset-5 col-md-12">Estimate VS Actual tasks' hours</label>
+      <div class="col-md-6" *ngFor="let chartOption of chartsOptions">
+        <chart [options]="chartOption"></chart>
+      </div>
     </div>
-    <div class="col-md-12" *ngIf="noChartsFlag">
-      <label>Sorry, all project's task actual work hours should have been set</label>
+    <div class="chartMsg col-md-12" *ngIf="noChartsFlag">
+      <label>No chart report, actual work hours has to be set</label>
+    </div>
+     <div class="chartMsg col-md-12" *ngIf="noProjectTasksFlag">
+      <label>No tasks under this project yet</label>
     </div>
   </div>
 </div>
-

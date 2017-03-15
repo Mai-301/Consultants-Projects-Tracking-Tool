@@ -2,13 +2,13 @@
 </app-navbar>
 
 <div id="mainComponent"class="wrapper container-fluid">
-  <div class="row">
-    <div class="col-md-3">
+  <div class="fullBody row">
+    <div id="sideBar" class="col-md-3 col-sm-2 col-xs-2">
       <aside>
         <app-side-bar></app-side-bar>
       </aside>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 col-sm-10 col-xs-10">
       <main>
         <router-outlet></router-outlet>
       </main>

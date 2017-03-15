@@ -29,9 +29,9 @@ export class ProjectComponent implements OnInit {
         description: project.description,
         startDate: [project.startDate, Validators.required],
         endDate: [project.endDate, Validators.required],
-        status: [project.status, Validators.required],
-        budget: [project.budget, Validators.required],
-        estimateHours: [project.estimateHours, Validators.required]
+        // status: [project.status, Validators.required],
+        budget: [project.budget, Validators.required]
+        // estimateHours: [project.estimateHours, Validators.required]
       });
       this.header = 'Edit Project';
     }
@@ -42,9 +42,9 @@ export class ProjectComponent implements OnInit {
         description: '',
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
-        status: ['', Validators.required],
-        budget: ['', Validators.required],
-        estimateHours: ['', Validators.required]
+        // status: ['', Validators.required],
+        budget: ['', Validators.required]
+        // estimateHours: ['', Validators.required]
       });
       this.header = 'Add Project';
     }
@@ -52,9 +52,9 @@ export class ProjectComponent implements OnInit {
   ngOnInit() {
 
   }
-  onChangeStatus(status: string) {
-    this.project.controls['status'].patchValue(status);
-  }
+  // onChangeStatus(status: string) {
+  //   this.project.controls['status'].patchValue(status);
+  // }
   openProjectModal(project?: Project): void {
     this.createProjectForm(project);
     this.childModal.show();

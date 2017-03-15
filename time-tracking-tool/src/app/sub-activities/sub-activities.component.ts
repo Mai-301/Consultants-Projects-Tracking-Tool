@@ -61,16 +61,16 @@ export class SubActivitiesComponent implements OnInit {
   onChangeProjects(project: number) {
     this.task.controls['assignedProjectID'].patchValue(project);
   }
-  checkEstimateHoursValidity(taskIndex: number, projectIndex: number, estimate: number): boolean {
-    let projectTasks = this.taskService.getProjectTasks(projectIndex);
-    let accumulatedtaskHours: number = 0;
-    for (const task of projectTasks) {
-      if (task.id === taskIndex)
-        continue;
-      accumulatedtaskHours += task.estimate;
-    }
-    return ((accumulatedtaskHours + estimate) <= this.projectService.getById(projectIndex).estimateHours) ? true : false;
-  }
+  // checkEstimateHoursValidity(taskIndex: number, projectIndex: number, estimate: number): boolean {
+  //   let projectTasks = this.taskService.getProjectTasks(projectIndex);
+  //   let accumulatedTaskHours: number = 0;
+  //   for (const task of projectTasks) {
+  //      if (task.id === taskIndex)
+  //        continue;
+  //     accumulatedTaskHours += task.estimate;
+  //   }
+  //   return ((accumulatedTaskHours + estimate) <= this.projectService.getById(projectIndex).estimateHours) ? true : false;
+  // }
   onSubmit({ value, valid }: { value: Task, valid: boolean }) {
     if (valid) {
       let taskIndex = _.findIndex(this.tasks, function (task) {
@@ -81,9 +81,9 @@ export class SubActivitiesComponent implements OnInit {
       // for (const task of projectTasks) {
       //   taskHours += task.estimate;
       // }
-      if (!this.checkEstimateHoursValidity(taskIndex, value.assignedProjectID, value.estimate))
-        return;
-      else {
+      // if (!this.checkEstimateHoursValidity(taskIndex, value.assignedProjectID, value.estimate))
+      //   return;
+    // else {
         if (taskIndex === -1) {
 
           // if (taskHours + value.estimate > this.projectService.getById(value.assignedProjectID).estimateHours)
@@ -96,7 +96,7 @@ export class SubActivitiesComponent implements OnInit {
           // value.remaining = this.taskService.trackTask(taskIndex, value.spent);
           this.tasks.splice(taskIndex, 1, value);
         }
-      }
+    //  }
 
       this.childModal.hide();
       this.reset();

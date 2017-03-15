@@ -14,6 +14,7 @@ export class ReportComponent implements OnInit {
   selectedProject: Project;
   chartsOptions: Object[] = [];
   noChartsFlag: boolean = false;
+  noProjectTasksFlag:boolean=false;
   constructor(private route: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService) {
   }
 
@@ -21,6 +22,10 @@ export class ReportComponent implements OnInit {
     this.route.params.subscribe(p => {
       this.selectedProject = this.projectService.getById(p['id']);
       this.projectTasks = this.taskService.getProjectTasks(p['id']);
+      if(this.projectTasks.length==0){
+        this.noProjectTasksFlag=true;
+        return;
+      }
       this.prepareData();
     });
   }
@@ -53,6 +58,9 @@ export class ReportComponent implements OnInit {
           plotBorderWidth: null,
           plotShadow: false,
           type: 'pie'
+        },
+         title: {
+            text: ''
         },
         tooltip: {
           pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
