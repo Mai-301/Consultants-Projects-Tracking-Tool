@@ -12,17 +12,21 @@ import { SubActivitiesComponent } from './sub-activities/sub-activities.componen
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectService } from './project.service';
 import { ModalModule } from 'ng2-bootstrap';
-import { DropdownModule } from 'ng2-bootstrap';
 import { LocalStorageService } from 'angular2-localstorage';
 import { TaskService } from './task.service';
 import { EmployeeService } from './employee.service';
-import { ChartModule } from 'angular2-highcharts';
+// import { ChartModule } from 'angular2-highcharts';
 import { ReportComponent } from './report/report.component';
 import { AdminComponent } from './admin/admin.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 
+import { ChartModule } from 'angular2-highcharts';
+import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
+export function highchartsFactory() {
+  return require('highcharts');
+}
 const appRoutes: Routes = [
   {
     path: 'admin', component: AdminComponent,
@@ -53,9 +57,12 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule, ReactiveFormsModule,
-    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(), DropdownModule.forRoot(), FormsModule, ChartModule.forRoot(require('highcharts'))
+    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(), FormsModule, ChartModule
   ],
-  providers: [ProjectService, TaskService, EmployeeService, LocalStorageService],
+  providers: [ProjectService, TaskService, EmployeeService, LocalStorageService, {
+    provide: HighchartsStatic,
+    useFactory: highchartsFactory
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
