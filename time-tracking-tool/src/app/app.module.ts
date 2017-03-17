@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { SearchComponent } from './search/search.component';
 import { ProjectComponent } from './project/project.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { SubActivitiesComponent } from './sub-activities/sub-activities.component';
@@ -15,7 +14,6 @@ import { ModalModule } from 'ng2-bootstrap';
 import { LocalStorageService } from 'angular2-localstorage';
 import { TaskService } from './task.service';
 import { EmployeeService } from './employee.service';
-// import { ChartModule } from 'angular2-highcharts';
 import { ReportComponent } from './report/report.component';
 import { AdminComponent } from './admin/admin.component';
 import { EmployeeComponent } from './employee/employee.component';
@@ -44,7 +42,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     NavbarComponent,
-    SearchComponent,
     ProjectComponent,
     SideBarComponent,
     SubActivitiesComponent,
