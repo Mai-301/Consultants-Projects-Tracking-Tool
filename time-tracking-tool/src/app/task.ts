@@ -6,6 +6,5 @@ export class Task {
     estimate: number;
     actual: number;
     assignedProjectID: number;
-    assignedProjectName:string;   
-    
+    function:string
 }

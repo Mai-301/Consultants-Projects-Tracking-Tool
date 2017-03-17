@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 main{
-    height: 90%;
+    height: 100%;
 }
 aside{
-    height: 90%;
+    height: 100%;
 }
 html, body { 
     height: 100%;
@@ -22,12 +22,21 @@ html, body {
 .projectsTable{
     height: 90%;
     border: 1px black solid;
-    background-color: lightsteelblue;
+    /*background-color: lightgrey;*/
+    overflow-x:auto;
 }
-.table-bordered>tbody>tr>td, .table-bordered>thead>tr>td{
-    border: 1px solid black;
+
+.table>tbody>tr>td,.table>thead:first-child>tr:first-child>th{
+    text-align: center;
 }
-.projectIcons{
+@media (max-width : 768px) {
+.table>tbody>tr>td,p{
+    font-size: small;
+}
+
+}
+
+.fa{
     cursor: pointer;
 }
 .container-fluid{
@@ -35,4 +44,7 @@ html, body {
 }
 #mainComponent{
     padding-top: 100px;
+}
+.table{
+    margin-bottom: 0;
 }

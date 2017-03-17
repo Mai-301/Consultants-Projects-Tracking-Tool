@@ -9,7 +9,6 @@ import { SearchComponent } from './search/search.component';
 import { ProjectComponent } from './project/project.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { SubActivitiesComponent } from './sub-activities/sub-activities.component';
-import { NavLinkComponent } from './nav-link/nav-link.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectService } from './project.service';
 import { ModalModule } from 'ng2-bootstrap';
@@ -17,14 +16,12 @@ import { DropdownModule } from 'ng2-bootstrap';
 import { LocalStorageService } from 'angular2-localstorage';
 import { TaskService } from './task.service';
 import { EmployeeService } from './employee.service';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartModule } from 'angular2-highcharts';
 import { ReportComponent } from './report/report.component';
 import { AdminComponent } from './admin/admin.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
-import { SidebarModule } from 'ng-sidebar';
 
 const appRoutes: Routes = [
   {
@@ -47,8 +44,6 @@ const appRoutes: Routes = [
     ProjectComponent,
     SideBarComponent,
     SubActivitiesComponent,
-    NavLinkComponent,
-    DashboardComponent,
     ReportComponent,
     AdminComponent,
     EmployeeComponent,
@@ -58,7 +53,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule, ReactiveFormsModule,
-    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(), DropdownModule.forRoot(), FormsModule, ChartModule.forRoot(require('highcharts')),SidebarModule
+    HttpModule, RouterModule.forRoot(appRoutes), ModalModule.forRoot(), DropdownModule.forRoot(), FormsModule, ChartModule.forRoot(require('highcharts'))
   ],
   providers: [ProjectService, TaskService, EmployeeService, LocalStorageService],
   bootstrap: [AppComponent]

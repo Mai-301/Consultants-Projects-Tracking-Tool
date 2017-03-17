@@ -13,8 +13,9 @@ export class ReportComponent implements OnInit {
   projectTasks: Task[];
   selectedProject: Project;
   chartsOptions: Object[] = [];
-  noChartsFlag: boolean = false;
-  noProjectTasksFlag:boolean=false;
+  noProjectTasksFlag: boolean = false;
+  noActualSeriesFlag: boolean = false;
+  currentDateTime: String;
   constructor(private route: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService) {
   }
 
@@ -22,8 +23,8 @@ export class ReportComponent implements OnInit {
     this.route.params.subscribe(p => {
       this.selectedProject = this.projectService.getById(p['id']);
       this.projectTasks = this.taskService.getProjectTasks(p['id']);
-      if(this.projectTasks.length==0){
-        this.noProjectTasksFlag=true;
+      if (this.projectTasks.length == 0) {
+        this.noProjectTasksFlag = true;
         return;
       }
       this.prepareData();
@@ -35,19 +36,20 @@ export class ReportComponent implements OnInit {
     let estimateSeries = [];
     let chartSerieses = [];
     for (const task of this.projectTasks) {
-      if (task.actual === undefined) {
-        this.noChartsFlag = true;
-        return;
+      if (task.actual !== undefined) {
+        const actualTaskHours: { name: string, y: number } = { name: task.function, y: task.actual };
+        actualSeries.push(actualTaskHours);
+        this.noActualSeriesFlag = true;
       }
-
-      const actualTaskHours: { name: string, y: number } = { name: task.name, y: task.actual };
-      const estimateTaskHours: { name: string, y: number } = { name: task.name, y: task.estimate };
-      actualSeries.push(actualTaskHours);
+      const estimateTaskHours: { name: string, y: number } = { name: task.function, y: task.estimate };
       estimateSeries.push(estimateTaskHours);
     }
-    chartSerieses.push(actualSeries);
+    if (actualSeries.length > 0)
+      chartSerieses.push(actualSeries);
+
     chartSerieses.push(estimateSeries);
     this.drawCharts(chartSerieses);
+    this.currentDateTime = new Date().toLocaleString();
   }
 
   drawCharts(chartSerieses: Array<Array<Object>>) {
@@ -59,8 +61,8 @@ export class ReportComponent implements OnInit {
           plotShadow: false,
           type: 'pie'
         },
-         title: {
-            text: ''
+        title: {
+          text: ''
         },
         tooltip: {
           pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -72,7 +74,8 @@ export class ReportComponent implements OnInit {
             dataLabels: {
               enabled: false
             },
-            showInLegend: true
+            showInLegend: true,
+            size: 130
           }
         },
         series: [{

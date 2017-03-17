@@ -12,12 +12,10 @@ import * as _ from 'lodash';
 })
 export class ProjectComponent implements OnInit {
   projects: Project[];
-  statuses: string[];
   project: FormGroup;
   header: string;
   @ViewChild('childModal') public childModal: ModalDirective;
   constructor(private projectService: ProjectService, private fb: FormBuilder) {
-    this.statuses = ["Active", "Freezed", "Finished"];
     this.projects = this.projectService.getProjects();
     this.createProjectForm();
   }
@@ -29,9 +27,7 @@ export class ProjectComponent implements OnInit {
         description: project.description,
         startDate: [project.startDate, Validators.required],
         endDate: [project.endDate, Validators.required],
-        // status: [project.status, Validators.required],
         budget: [project.budget, Validators.required]
-        // estimateHours: [project.estimateHours, Validators.required]
       });
       this.header = 'Edit Project';
     }
@@ -42,9 +38,7 @@ export class ProjectComponent implements OnInit {
         description: '',
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
-        // status: ['', Validators.required],
         budget: ['', Validators.required]
-        // estimateHours: ['', Validators.required]
       });
       this.header = 'Add Project';
     }
@@ -52,9 +46,6 @@ export class ProjectComponent implements OnInit {
   ngOnInit() {
 
   }
-  // onChangeStatus(status: string) {
-  //   this.project.controls['status'].patchValue(status);
-  // }
   openProjectModal(project?: Project): void {
     this.createProjectForm(project);
     this.childModal.show();
