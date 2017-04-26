@@ -4,7 +4,10 @@
       <div class="col-md-4 ">
       </div>
       <div class="col-md-4 ">
-
+        <p>Goodbye Timesheets. Hello Projects' & Employees' time tracking tool</p>
+        <p>
+          Whether you are an admin or an employee, you have to login as one of them, or create new account.
+        </p>
         <form novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
           <img class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
           <div class="form-group col-md-12 col-sm-6 col-xs-12">
@@ -16,7 +19,7 @@
             <input type="password" class="form-control" formControlName="password" name="password">
           </div>
 
-          <button class="btn btn-primary col-md-offset-5 col-sm-offset-6 col-xs-offset-5" type="submit" [disabled]="user.invalid">Login</button>
+          <button class="btn btn-primary" type="submit" [disabled]="user.invalid">Login</button>
         </form>
       </div>
       <div class="col-md-4 ">

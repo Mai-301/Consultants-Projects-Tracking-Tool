@@ -1,9 +1,11 @@
 form{
-    padding-top: 100px;
+    padding-top: 7%;
     background:#F7F7F7;
+    text-align: center;
 }
 button{
     background-color: rgb(104, 145, 162);
+    margin-bottom: 2%;
 }
 .profile-img-card {
     width: 96px;
@@ -13,4 +15,17 @@ button{
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
+}
+section{
+    background:darkslategrey;
+    height: 100%;
+    text-align: center;
+}
+p{
+    color: white;
+    font-family: monospace;
+    font-size: 120%;
+    display: inline-block;
+    margin-top: 3%;
+    
 }

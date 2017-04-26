@@ -44,7 +44,7 @@ export class ProjectComponent implements OnInit {
     }
   }
   ngOnInit() {
-
+  
   }
   openProjectModal(project?: Project): void {
     this.createProjectForm(project);
