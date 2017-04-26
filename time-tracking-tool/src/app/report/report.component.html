@@ -1,0 +1,16 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div *ngIf="!noProjectTasksFlag">
+        <label class="col-md-offset-4" *ngIf="noActualSeriesFlag">Actual VS Estimate of {{selectedProject.name}} tasks' hours as of {{currentDateTime}}</label>
+        <label class="col-md-offset-4" *ngIf="!noActualSeriesFlag">Actual of {{selectedProject.name}} as of {{currentDateTime}}</label>
+        <div class="col-md-6 col-sm-6 col-xs-12" *ngFor="let chartOption of chartsOptions">
+          <chart [options]="chartOption"></chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chartMsg" *ngIf="noProjectTasksFlag">
+    <label>No tasks under this project yet</label>
+  </div>
+</section>

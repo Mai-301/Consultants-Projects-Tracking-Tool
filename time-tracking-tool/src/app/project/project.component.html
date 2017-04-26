@@ -1,0 +1,87 @@
+<section>
+  <i class="fa fa-plus-circle fa-2x" aria-hidden="true" (click)="openProjectModal()" title="Add Project"></i>
+  <div class="container-fluid projectsTable">
+    <div class="row">
+      <table class="table table-striped table-responsive col-sm-8">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Budget</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of projects">
+            <td>{{project.name}}</td>
+            <td>{{project.description}}</td>
+            <td>{{project.startDate}}</td>
+            <td>{{project.endDate}}</td>
+            <td>{{project.budget}}</td>
+            <td>
+              <div class="col-sm-4 col-xs-4">
+                <i class="fa fa-pencil" aria-hidden="true" title="Edit" (click)="openProjectModal(project)"></i>
+              </div>
+              <div class="col-sm-4 col-xs-4">
+                <a routerLink="reports/{{project.id}}">
+                  <i class="fa fa-pie-chart" aria-hidden="true" title="Show report"></i>
+                </a>
+              </div>
+              <div class="col-sm-4 col-xs-4">
+                <i class="fa fa-trash" aria-hidden="true" title="Delete" (click)="deleteProject(project)"></i>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{header}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form novalidate (ngSubmit)="onSubmit(project)" [formGroup]="project">
+          <div class="form-group">
+            <label for="name" class="control-label col-sm-2">Name</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="name" name="name" type="text"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="control-label col-sm-2">Description</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="description" name="description" type="text"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="startDate" class="control-label col-sm-2">Start Date</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="startDate" name="startDate" type="date"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="endDate" class="control-label col-sm-2">End Date</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="endDate" name="endDate" type="date"></div>
+          </div>
+          <div class="form-group">
+            <label for="budget" class="control-label col-sm-2">Budget</label>
+            <div class="col-sm-4"><input class="form-control" formControlName="budget" name="budget" type="number"></div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" aria-label="Close" (click)="hideChildModal()">Close</button>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit(project)" [disabled]="project.invalid">Submit</button>
+      </div>
+    </div>
+  </div>

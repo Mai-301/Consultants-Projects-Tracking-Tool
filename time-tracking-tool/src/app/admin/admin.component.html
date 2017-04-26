@@ -1,0 +1,20 @@
+
+<app-navbar>
+</app-navbar>
+
+<div id="mainComponent"class="container-fluid">
+  <div class="fullBody row">
+    <div id="sideBar" class="col-md-3 col-sm-2 col-xs-2">
+      <aside>
+        <app-side-bar></app-side-bar>
+      </aside>
+    </div>
+    <div class="col-md-9 col-sm-10 col-xs-10">
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </div>
+</div>
+<app-footer>
+</app-footer>
